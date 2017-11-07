@@ -60,3 +60,9 @@ typings/
 # secrets
 secrets.js
 
+# mac file
+.DS_Store
+
+# ignore image directory
+avatars/*
+
