@@ -5,8 +5,6 @@ const secrets = require('./secrets');
 console.log('Welcome to the GitHub Avatar Downloader!');
 
 // getRepoContributors - fetch list of contributors
-//   cb - callback function to handle results - cb(err, result)
-//   repoOwner, repoName - github repository identification
 function getRepoContributors(repoOwner, repoName, cb) {
   // curl -u <username>:<token> https://api.github.com/repos/jquery/jquery/contributors
   var options = {
@@ -24,14 +22,15 @@ function getRepoContributors(repoOwner, repoName, cb) {
   });  
 }
 
+// makeDirectory - make directory if it does not exist
 function makeDirectory(dir) {
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir);
   }
 }
 
+// downloadImageByURL - download image from url and save to filePath
 function downloadImageByURL(url, filePath) {
-  // download image from url and save file to filePath
   request
     .get(url)
     .on('error', function(err) {
@@ -42,16 +41,27 @@ function downloadImageByURL(url, filePath) {
 
 
 // calling getRepoContributors with hard-coded values
-// callback function passes error first and response
-/*
 getRepoContributors("jquery", "jquery", function(err, result) {
+  
+  // directory to save images to
+  let dir = "avatars";
+
+  // make image directory
+  makeDirectory(dir);
+
+  // loop through contributors
   for (let contributor of result){
-    console.log ("avatar_url: " + contributor['avatar_url']);
+    
+    // construct file path using login
+    let filePath = dir + "/" + contributor.login + ".jpg";
+
+    // pass avatar_url and filepath to downloadImageByURL
+    downloadImageByURL(contributor['avatar_url'], filePath);
+
+    console.log("filePath: " + filePath + ", avatar_url: " + contributor['avatar_url']);
+
   }
+
   console.log("Errors:", err);
+
 });
-*/
-
-makeDirectory("avatars");
-downloadImageByURL("https://avatars2.githubusercontent.com/u/2741?v=3&s=466", "avatars/kvirani.jpg");
-
