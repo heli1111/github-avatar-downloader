@@ -2,12 +2,15 @@ const request = require('request');
 const fs = require('fs');
 const secrets = require('./secrets');
 
+let owner = process.argv[2];
+let repo = process.argv[3];
+
 console.log('Welcome to the GitHub Avatar Downloader!');
 
 // getRepoContributors - fetch list of contributors
 function getRepoContributors(repoOwner, repoName, cb) {
   // curl -u <username>:<token> https://api.github.com/repos/jquery/jquery/contributors
-  var options = {
+  let options = {
     url: "https://api.github.com/repos/" + repoOwner + "/" + repoName + "/contributors",
     headers: {
       'User-Agent': 'hepuliu',
@@ -41,7 +44,7 @@ function downloadImageByURL(url, filePath) {
 
 
 // calling getRepoContributors with hard-coded values
-getRepoContributors("jquery", "jquery", function(err, result) {
+getRepoContributors(owner, repo, function(err, result) {
   
   // directory to save images to
   let dir = "avatars";
