@@ -5,6 +5,12 @@ const secrets = require('./secrets');
 let owner = process.argv[2];
 let repo = process.argv[3];
 
+// verify command line arguments and exit on error
+if (process.argv.length != 4) {
+  console.log("error - please provide both owner and repository arguments");
+  return;
+}
+
 console.log('Welcome to the GitHub Avatar Downloader!');
 
 // getRepoContributors - fetch list of contributors
