@@ -25,14 +25,21 @@ function getRepoContributors(repoOwner, repoName, cb) {
 }
 
 
+function downloadImageByURL(url, filePath) {
+  // ...
+}
 
 
 // calling getRepoContributors with hard-coded values
 // callback function passes error first and response
+/*
 getRepoContributors("jquery", "jquery", function(err, result) {
   for (let contributor of result){
     console.log ("avatar_url: " + contributor['avatar_url']);
   }
   console.log("Errors:", err);
 });
+*/
+
+downloadImageByURL("https://avatars2.githubusercontent.com/u/2741?v=3&s=466", "avatars/kvirani.jpg");
 
