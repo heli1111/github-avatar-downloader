@@ -16,15 +16,23 @@ function getRepoContributors(repoOwner, repoName, cb) {
     }
   };
 
+
   request(options, function(err, res, body) {
-    cb(err, body);
+    // parse body json string into object - body is json string
+    let contributors = JSON.parse(body);
+    cb(err, contributors);
   });  
 }
+
+
+
 
 // calling getRepoContributors with hard-coded values
 // callback function passes error first and response
 getRepoContributors("jquery", "jquery", function(err, result) {
+  for (let contributor of result){
+    console.log ("avatar_url: " + contributor['avatar_url']);
+  }
   console.log("Errors:", err);
-  console.log("Result:", result);
 });
 
